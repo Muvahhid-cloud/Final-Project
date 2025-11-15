@@ -21,19 +21,24 @@ public class RentalServiceFacade {
     public void listVehicles() {
         System.out.println("Available / Rented vehicles:");
         for (Vehicle v : inventory.getVehicles()) {
-            System.out.println(v.getName() + " | " + v.getType() + " | Rented: " + v.isRented());
+            System.out.println(v.getName() + " | " + v.getType()
+                    + " | Rented: " + v.isRented()
+                    + (v.isRented() ? " | By: " + v.getRentedBy() : ""));
         }
     }
 
-    public void rentVehicle(String name, PricingStrategy strategy, boolean gps, boolean ins) {
+    public void rentVehicle(String name, String renterName,
+                            PricingStrategy strategy, boolean gps, boolean ins) {
+
         Vehicle v = inventory.findByName(name);
+
         if (v == null) {
             System.out.println("Vehicle not found.");
             return;
         }
 
         if (v.isRented()) {
-            System.out.println("Vehicle already rented.");
+            System.out.println("❌ Vehicle already rented by " + v.getRentedBy());
             return;
         }
 
@@ -42,31 +47,44 @@ public class RentalServiceFacade {
         if (ins) decorated = new InsuranceDecorator(decorated);
 
         double cost = strategy.calculate(decorated.getBasePrice());
-        v.setRented(true);
 
-        System.out.println("Vehicle rented successfully.");
+        v.setRented(true);
+        v.setRentedBy(renterName);
+
+        System.out.println("✅ Vehicle rented successfully!");
+        System.out.println("Rented by: " + renterName);
         System.out.println("Total cost: " + cost);
     }
 
-    public void returnVehicle(String name) {
+    public void returnVehicle(String name, String renterName) {
         Vehicle v = inventory.findByName(name);
+
         if (v == null) {
-            System.out.println("Not found.");
+            System.out.println("Vehicle not found.");
             return;
         }
+
         if (!v.isRented()) {
             System.out.println("This vehicle is not rented.");
             return;
         }
+
+        if (!v.getRentedBy().equals(renterName)) {
+            System.out.println("❌ You cannot return this vehicle. It was rented by: "
+                    + v.getRentedBy());
+            return;
+        }
+
         v.setRented(false);
-        System.out.println("Vehicle returned.");
+        v.setRentedBy(null);
+
+        System.out.println("✅ Vehicle returned!");
 
         notifier.notifySubscribers(name + " is now available.");
     }
 
-    // accept Observer so any observer can subscribe (not only Customer)
     public void subscribe(Observer o) {
         notifier.subscribe(o);
-        System.out.println("Subscribed.");
+        System.out.println("Subscribed!");
     }
 }

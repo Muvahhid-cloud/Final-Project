@@ -14,34 +14,26 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+
         VehicleAbstractFactory factory = new PetrolVehicleFactory();
         VehicleInventory inventory = new VehicleInventory();
         VehicleAvailabilityNotifier notifier = new VehicleAvailabilityNotifier();
         RentalServiceFacade service = new RentalServiceFacade(inventory, notifier);
 
-        Vehicle v1 = factory.createSedan();
-        Vehicle v2 = factory.createSportBike();
-        Vehicle v3 = factory.createCargoVan();
-
-        inventory.addVehicle(v1);
-        inventory.addVehicle(v2);
-        inventory.addVehicle(v3);
+        inventory.addVehicle(factory.createSedan());
+        inventory.addVehicle(factory.createSportBike());
+        inventory.addVehicle(factory.createCargoVan());
 
         while (true) {
             System.out.println("\n--- Vehicle Rental Service ---");
-            System.out.println("1. View available vehicles");
-            System.out.println("2. Rent a vehicle");
-            System.out.println("3. Return a vehicle");
-            System.out.println("4. Subscribe for notifications");
+            System.out.println("1. View vehicles");
+            System.out.println("2. Rent");
+            System.out.println("3. Return");
+            System.out.println("4. Subscribe");
             System.out.println("5. Exit");
-            System.out.print("Enter option: ");
+            System.out.print("Option: ");
 
-            int opt = -1;
-            if (sc.hasNextInt()) {
-                opt = sc.nextInt();
-            } else {
-                sc.next(); // consume non-int
-            }
+            int opt = sc.nextInt();
             sc.nextLine();
 
             switch (opt) {
@@ -50,33 +42,35 @@ public class Main {
                     break;
 
                 case 2:
+                    System.out.print("Your name: ");
+                    String renter = sc.nextLine();
+
                     System.out.print("Enter vehicle name: ");
                     String name = sc.nextLine();
 
-                    System.out.println("1. Hourly 2. Daily");
-                    int p = -1;
-                    if (sc.hasNextInt()) {
-                        p = sc.nextInt();
-                    } else {
-                        sc.next();
-                    }
+                    System.out.print("Pricing (1 Hourly, 2 Daily): ");
+                    int p = sc.nextInt();
                     sc.nextLine();
 
                     PricingStrategy ps = (p == 1) ? new HourlyPricing() : new DailyPricing();
 
                     System.out.print("GPS? (y/n): ");
-                    boolean gps = sc.nextLine().trim().equalsIgnoreCase("y");
+                    boolean gps = sc.nextLine().equalsIgnoreCase("y");
 
                     System.out.print("Insurance? (y/n): ");
-                    boolean ins = sc.nextLine().trim().equalsIgnoreCase("y");
+                    boolean ins = sc.nextLine().equalsIgnoreCase("y");
 
-                    service.rentVehicle(name, ps, gps, ins);
+                    service.rentVehicle(name, renter, ps, gps, ins);
                     break;
 
                 case 3:
-                    System.out.print("Enter vehicle name: ");
-                    String r = sc.nextLine();
-                    service.returnVehicle(r);
+                    System.out.print("Your name: ");
+                    String rn = sc.nextLine();
+
+                    System.out.print("Vehicle name: ");
+                    String vn = sc.nextLine();
+
+                    service.returnVehicle(vn, rn);
                     break;
 
                 case 4:
@@ -86,8 +80,7 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.println("Goodbye.");
-                    sc.close();
+                    System.out.println("Goodbye!");
                     return;
 
                 default:
