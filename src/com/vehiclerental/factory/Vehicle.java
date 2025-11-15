@@ -15,14 +15,12 @@ public abstract class Vehicle {
 
     public String getName() { return name; }
     public double getBasePrice() { return basePrice; }
-
     public boolean isRented() { return rented; }
     public void setRented(boolean r) { rented = r; }
-
     public String getRentedBy() { return rentedBy; }
     public void setRentedBy(String rentedBy) { this.rentedBy = rentedBy; }
-
     public String getFuelType() { return fuelType; }
 
-    public abstract String getType();
+    // This is no longer needed, as the class itself defines the type
+    // public abstract String getType();
 }

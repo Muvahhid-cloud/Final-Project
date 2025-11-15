@@ -12,9 +12,4 @@ public class InsuranceDecorator extends VehicleDecorator {
     public double getBasePrice() {
         return wrapped.getBasePrice() + 30;
     }
-
-    @Override
-    public String getType() {
-        return wrapped.getType() + " + Insurance";
-    }
 }

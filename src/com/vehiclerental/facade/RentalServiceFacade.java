@@ -35,7 +35,7 @@ public class RentalServiceFacade {
         }
 
         System.out.println(String.format("%-15s | %-10s | %-15s | %-10s |",
-            "Petrol Cars", "Status", "Electric Cars", "Status"));
+                "Petrol Cars", "Status", "Electric Cars", "Status"));
         System.out.println("----------------|------------|-----------------|------------|");
 
         int maxRows = Math.max(petrolCars.size(), electricCars.size());
@@ -58,7 +58,7 @@ public class RentalServiceFacade {
             }
 
             System.out.println(String.format("%-15s | %-10s | %-15s | %-10s |",
-                pCar, pStatus, eCar, eStatus));
+                    pCar, pStatus, eCar, eStatus));
         }
     }
 
@@ -72,7 +72,7 @@ public class RentalServiceFacade {
         Vehicle v = inventory.findByName(name);
 
         if (v == null) {
-            System.out.println("Vehicle not found.");
+            System.out.println("❌ Vehicle not found.");
             return;
         }
 
@@ -105,12 +105,12 @@ public class RentalServiceFacade {
         Vehicle v = inventory.findByName(name);
 
         if (v == null) {
-            System.out.println("Vehicle not found.");
+            System.out.println("❌ Vehicle not found.");
             return;
         }
 
         if (!v.isRented()) {
-            System.out.println("This vehicle is not rented.");
+            System.out.println("❌ This vehicle is not rented.");
             return;
         }
 

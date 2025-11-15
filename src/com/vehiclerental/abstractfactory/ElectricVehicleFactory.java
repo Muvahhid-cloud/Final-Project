@@ -5,17 +5,22 @@ import com.vehiclerental.factory.*;
 public class ElectricVehicleFactory implements VehicleAbstractFactory {
 
     @Override
-    public Vehicle createSedan() {
-        return new Sedan("BYD", 120, "Electric");
+    public Vehicle createCar1() {
+        return new BYD();
     }
 
     @Override
-    public Vehicle createSportBike() {
-        return new Sedan("Chery", 110, "Electric");
+    public Vehicle createCar2() {
+        return new Chery();
     }
 
     @Override
-    public Vehicle createCargoVan() {
-        return new Sedan("Zeekr", 180, "Electric");
+    public Vehicle createCar3() {
+        return new Zeekr();
+    }
+
+    @Override
+    public Vehicle createCar4() {
+        return new Lixiang();
     }
 }

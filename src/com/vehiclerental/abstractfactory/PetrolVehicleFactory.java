@@ -5,17 +5,22 @@ import com.vehiclerental.factory.*;
 public class PetrolVehicleFactory implements VehicleAbstractFactory {
 
     @Override
-    public Vehicle createSedan() {
-        return new Sedan("Sedan", 80, "Petrol");
+    public Vehicle createCar1() {
+        return new Sedan();
     }
 
     @Override
-    public Vehicle createSportBike() {
-        return new Sedan("Cobalt", 70, "Petrol");
+    public Vehicle createCar2() {
+        return new Cobalt();
     }
 
     @Override
-    public Vehicle createCargoVan() {
-        return new Sedan("Lexux", 150, "Petrol");
+    public Vehicle createCar3() {
+        return new Lexux();
+    }
+
+    @Override
+    public Vehicle createCar4() {
+        return new LandCruizer();
     }
 }

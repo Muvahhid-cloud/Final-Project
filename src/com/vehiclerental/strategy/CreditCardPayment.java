@@ -15,12 +15,11 @@ public class CreditCardPayment implements IPaymentStrategy {
         String cvv = scanner.nextLine();
 
         if (!isValidCard(card, cvv)) {
-            System.out.println("Invalid card details. Payment failed.");
+            System.out.println("❌ Invalid card details. Payment failed.");
             return false;
         }
 
-
-        System.out.println("Payment successful!");
+        System.out.println("✅ Payment successful!");
         return true;
     }
 

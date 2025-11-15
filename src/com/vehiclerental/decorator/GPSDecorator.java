@@ -13,8 +13,5 @@ public class GPSDecorator extends VehicleDecorator {
         return wrapped.getBasePrice() + 15;
     }
 
-    @Override
-    public String getType() {
-        return wrapped.getType() + " + GPS";
-    }
+    // We no longer override getType() as it's not needed
 }

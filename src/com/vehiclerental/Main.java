@@ -3,7 +3,6 @@ package com.vehiclerental;
 import com.vehiclerental.abstractfactory.*;
 import com.vehiclerental.data.VehicleInventory;
 import com.vehiclerental.facade.RentalServiceFacade;
-import com.vehiclerental.factory.Sedan;
 import com.vehiclerental.factory.Vehicle;
 import com.vehiclerental.observer.Customer;
 import com.vehiclerental.observer.VehicleAvailabilityNotifier;
@@ -22,16 +21,36 @@ public class Main {
         VehicleAvailabilityNotifier notifier = new VehicleAvailabilityNotifier();
         RentalServiceFacade service = new RentalServiceFacade(inventory, notifier);
 
-        inventory.addVehicle(petrolFactory.createSedan());
-        inventory.addVehicle(petrolFactory.createSportBike());
-        inventory.addVehicle(petrolFactory.createCargoVan());
-        inventory.addVehicle(new Sedan("land Cruizer", 200, "Petrol"));
+        // Add all cars from both factories
+        inventory.addVehicle(petrolFactory.createCar1()); // Sedan
+        inventory.addVehicle(petrolFactory.createCar2()); // Cobalt
+        inventory.addVehicle(petrolFactory.createCar3()); // Lexux
+        inventory.addVehicle(petrolFactory.createCar4()); // Land Cruizer
 
-        inventory.addVehicle(electricFactory.createSedan());
-        inventory.addVehicle(electricFactory.createSportBike());
-        inventory.addVehicle(electricFactory.createCargoVan());
-        inventory.addVehicle(new Sedan("lixiang", 190, "Electric"));
+        inventory.addVehicle(electricFactory.createCar1()); // BYD
+        inventory.addVehicle(electricFactory.createCar2()); // Chery
+        inventory.addVehicle(electricFactory.createCar3()); // Zeekr
+        inventory.addVehicle(electricFactory.createCar4()); // Lixiang
 
+        // --- Pre-rent cars to match the image ---
+        Vehicle sedan = inventory.findByName("Sedan");
+        if (sedan != null) {
+            sedan.setRented(true);
+            sedan.setRentedBy("Initial Renter");
+        }
+
+        Vehicle lexux = inventory.findByName("Lexux");
+        if (lexux != null) {
+            lexux.setRented(true);
+            lexux.setRentedBy("Initial Renter");
+        }
+
+        Vehicle zeekr = inventory.findByName("Zeekr");
+        if (zeekr != null) {
+            zeekr.setRented(true);
+            zeekr.setRentedBy("Initial Renter");
+        }
+        // --- End of pre-rent ---
 
         while (true) {
             System.out.println("\n--- Vehicle Rental Service ---");
