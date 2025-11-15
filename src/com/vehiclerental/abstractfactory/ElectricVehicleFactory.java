@@ -6,16 +6,16 @@ public class ElectricVehicleFactory implements VehicleAbstractFactory {
 
     @Override
     public Vehicle createSedan() {
-        return new Sedan("Electric Sedan", 120);
+        return new Sedan("BYD", 120, "Electric");
     }
 
     @Override
     public Vehicle createSportBike() {
-        return new SportBike("Electric SportBike", 70);
+        return new Sedan("Chery", 110, "Electric");
     }
 
     @Override
     public Vehicle createCargoVan() {
-        return new CargoVan("Electric CargoVan", 180);
+        return new Sedan("Zeekr", 180, "Electric");
     }
 }

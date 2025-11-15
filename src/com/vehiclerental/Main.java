@@ -3,11 +3,11 @@ package com.vehiclerental;
 import com.vehiclerental.abstractfactory.*;
 import com.vehiclerental.data.VehicleInventory;
 import com.vehiclerental.facade.RentalServiceFacade;
+import com.vehiclerental.factory.Sedan;
 import com.vehiclerental.factory.Vehicle;
 import com.vehiclerental.observer.Customer;
 import com.vehiclerental.observer.VehicleAvailabilityNotifier;
 import com.vehiclerental.strategy.*;
-
 import java.util.Scanner;
 
 public class Main {
@@ -15,14 +15,23 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        VehicleAbstractFactory factory = new PetrolVehicleFactory();
+        VehicleAbstractFactory petrolFactory = new PetrolVehicleFactory();
+        VehicleAbstractFactory electricFactory = new ElectricVehicleFactory();
+
         VehicleInventory inventory = new VehicleInventory();
         VehicleAvailabilityNotifier notifier = new VehicleAvailabilityNotifier();
         RentalServiceFacade service = new RentalServiceFacade(inventory, notifier);
 
-        inventory.addVehicle(factory.createSedan());
-        inventory.addVehicle(factory.createSportBike());
-        inventory.addVehicle(factory.createCargoVan());
+        inventory.addVehicle(petrolFactory.createSedan());
+        inventory.addVehicle(petrolFactory.createSportBike());
+        inventory.addVehicle(petrolFactory.createCargoVan());
+        inventory.addVehicle(new Sedan("land Cruizer", 200, "Petrol"));
+
+        inventory.addVehicle(electricFactory.createSedan());
+        inventory.addVehicle(electricFactory.createSportBike());
+        inventory.addVehicle(electricFactory.createCargoVan());
+        inventory.addVehicle(new Sedan("lixiang", 190, "Electric"));
+
 
         while (true) {
             System.out.println("\n--- Vehicle Rental Service ---");
@@ -51,8 +60,23 @@ public class Main {
                     System.out.print("Pricing (1 Hourly, 2 Daily): ");
                     int p = sc.nextInt();
                     sc.nextLine();
-
                     PricingStrategy ps = (p == 1) ? new HourlyPricing() : new DailyPricing();
+
+                    int duration;
+                    if (p == 1) {
+                        System.out.print("Enter number of hours: ");
+                    } else {
+                        System.out.print("Enter number of days: ");
+                    }
+                    duration = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Payment (1 Card, 2 Cash): ");
+                    int payOpt = sc.nextInt();
+                    sc.nextLine();
+                    IPaymentStrategy paymentStrategy = (payOpt == 1)
+                            ? new CreditCardPayment()
+                            : new CashPayment();
 
                     System.out.print("GPS? (y/n): ");
                     boolean gps = sc.nextLine().equalsIgnoreCase("y");
@@ -60,7 +84,7 @@ public class Main {
                     System.out.print("Insurance? (y/n): ");
                     boolean ins = sc.nextLine().equalsIgnoreCase("y");
 
-                    service.rentVehicle(name, renter, ps, gps, ins);
+                    service.rentVehicle(name, renter, ps, paymentStrategy, gps, ins, sc, duration);
                     break;
 
                 case 3:

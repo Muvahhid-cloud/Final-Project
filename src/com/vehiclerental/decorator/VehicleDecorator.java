@@ -7,11 +7,10 @@ public abstract class VehicleDecorator extends Vehicle {
     protected Vehicle wrapped;
 
     public VehicleDecorator(Vehicle v) {
-        super(v.getName(), v.getBasePrice());
+        super(v.getName(), v.getBasePrice(), v.getFuelType());
         this.wrapped = v;
     }
 
-    // default delegation (convenience)
     @Override
     public double getBasePrice() {
         return wrapped.getBasePrice();

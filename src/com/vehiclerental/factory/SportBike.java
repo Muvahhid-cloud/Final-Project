@@ -1,8 +1,8 @@
 package com.vehiclerental.factory;
 
 public class SportBike extends Vehicle {
-    public SportBike(String name, double basePrice) {
-        super(name, basePrice);
+    public SportBike(String name, double basePrice, String fuelType) {
+        super(name, basePrice, fuelType);
     }
 
     @Override

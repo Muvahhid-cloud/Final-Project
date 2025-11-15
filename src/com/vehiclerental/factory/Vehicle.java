@@ -5,10 +5,12 @@ public abstract class Vehicle {
     protected double basePrice;
     protected boolean rented = false;
     protected String rentedBy = null;
+    protected String fuelType;
 
-    public Vehicle(String name, double basePrice) {
+    public Vehicle(String name, double basePrice, String fuelType) {
         this.name = name;
         this.basePrice = basePrice;
+        this.fuelType = fuelType;
     }
 
     public String getName() { return name; }
@@ -19,6 +21,8 @@ public abstract class Vehicle {
 
     public String getRentedBy() { return rentedBy; }
     public void setRentedBy(String rentedBy) { this.rentedBy = rentedBy; }
+
+    public String getFuelType() { return fuelType; }
 
     public abstract String getType();
 }
