@@ -72,12 +72,12 @@ public class RentalServiceFacade {
         Vehicle v = inventory.findByName(name);
 
         if (v == null) {
-            System.out.println("❌ Vehicle not found.");
+            System.out.println(" Vehicle not found.");
             return;
         }
 
         if (v.isRented()) {
-            System.out.println("❌ Vehicle already rented by " + v.getRentedBy());
+            System.out.println(" Vehicle already rented by " + v.getRentedBy());
             return;
         }
 
@@ -93,11 +93,11 @@ public class RentalServiceFacade {
             v.setRented(true);
             v.setRentedBy(renterName);
 
-            System.out.println("✅ Vehicle rented successfully!");
+            System.out.println("Vehicle rented successfully!");
             System.out.println("Rented by: " + renterName);
             System.out.println("Total cost: " + cost);
         } else {
-            System.out.println("❌ Payment failed. Rental cancelled.");
+            System.out.println(" Payment failed. Rental cancelled.");
         }
     }
 
@@ -105,17 +105,17 @@ public class RentalServiceFacade {
         Vehicle v = inventory.findByName(name);
 
         if (v == null) {
-            System.out.println("❌ Vehicle not found.");
+            System.out.println(" Vehicle not found.");
             return;
         }
 
         if (!v.isRented()) {
-            System.out.println("❌ This vehicle is not rented.");
+            System.out.println(" This vehicle is not rented.");
             return;
         }
 
         if (!v.getRentedBy().equals(renterName)) {
-            System.out.println("❌ You cannot return this vehicle. It was rented by: "
+            System.out.println(" You cannot return this vehicle. It was rented by: "
                     + v.getRentedBy());
             return;
         }
@@ -123,7 +123,7 @@ public class RentalServiceFacade {
         v.setRented(false);
         v.setRentedBy(null);
 
-        System.out.println("✅ Vehicle returned!");
+        System.out.println(" Vehicle returned!");
 
         notifier.notifySubscribers(name + " is now available.");
     }
