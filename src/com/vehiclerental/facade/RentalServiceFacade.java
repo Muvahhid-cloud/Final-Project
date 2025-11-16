@@ -95,7 +95,7 @@ public class RentalServiceFacade {
 
             System.out.println("Vehicle rented successfully!");
             System.out.println("Rented by: " + renterName);
-            System.out.println("Total cost: " + cost);
+            System.out.println("Total cost: " + cost + " ₸");
         } else {
             System.out.println(" Payment failed. Rental cancelled.");
         }

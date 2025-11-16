@@ -6,7 +6,7 @@ public class CreditCardPayment implements IPaymentStrategy {
 
     @Override
     public boolean pay(double amount, Scanner scanner) {
-        System.out.println("Processing Credit Card payment of " + amount + "...");
+        System.out.println("Processing Credit Card payment of " + amount + " ₸");
 
         System.out.print("Enter Card Number (16 digits): ");
         String card = scanner.nextLine();
