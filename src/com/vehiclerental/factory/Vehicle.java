@@ -20,7 +20,4 @@ public abstract class Vehicle {
     public String getRentedBy() { return rentedBy; }
     public void setRentedBy(String rentedBy) { this.rentedBy = rentedBy; }
     public String getFuelType() { return fuelType; }
-
-    // This is no longer needed, as the class itself defines the type
-    // public abstract String getType();
 }
