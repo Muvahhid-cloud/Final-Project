@@ -1,12 +1,9 @@
 package com.vehiclerental.observer;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleAvailabilityNotifier {
-
     private List<Observer> subs = new ArrayList<>();
-
     public void subscribe(Observer o) {
         subs.add(o);
     }

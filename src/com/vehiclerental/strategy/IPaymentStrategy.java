@@ -1,5 +1,4 @@
 package com.vehiclerental.strategy;
-
 import java.util.Scanner;
 
 public interface IPaymentStrategy {
